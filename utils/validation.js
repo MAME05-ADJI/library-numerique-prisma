@@ -15,12 +15,7 @@ class Validator {
       errors.push('Email invalide');
     }
 
-    // Name
-    if (!isUpdate && !userData.name) {
-      errors.push('Nom requis');
-    } else if (userData.name && (userData.name.length < 2 || userData.name.length > 50)) {
-      errors.push('Le nom doit contenir entre 2 et 50 caractères');
-    }
+   
 
     // Password
     if (!isUpdate && !userData.password) {
@@ -29,11 +24,11 @@ class Validator {
       errors.push('Le mot de passe doit contenir au moins 6 caractères');
     }
 // Role
-    if (!isUpdate && !userData.role) {
-      errors.push('Rôle requis');
-    } else if (userData.role && !this.validateRole(userData.role)) {
-      errors.push('Rôle invalide (valeurs possibles : admin, etudiant, enseignant)');
-    }
+    // if (!isUpdate && !userData.role) {
+    //   errors.push('Rôle requis');
+    // } else if (userData.role && !this.validateRole(userData.role)) {
+    //   errors.push('Rôle invalide (valeurs possibles : admin, etudiant, enseignant)');
+    // }
 
     return {
       isValid: errors.length === 0,

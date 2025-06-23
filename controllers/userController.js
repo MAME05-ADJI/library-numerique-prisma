@@ -4,14 +4,14 @@ const Validator = require('../utils/validation');
 class UserController {
   async createUser(req, res) {
     try {
-      const validation = Validator.validateUser(req.body);
-      if (!validation.isValid) {
-        return res.status(400).json({
-          success: false,
-          message: 'Données invalides',
-          errors: validation.errors
-        });
-      }
+      // const validation = Validator.validateUser(req.body);
+      // if (!validation.isValid) {
+      //   return res.status(400).json({
+      //     success: false,
+      //     message: 'Données invalides',
+      //     errors: validation.errors
+      //   });
+      // }
 
       const user = await userService.createUser(req.body);
 
@@ -145,6 +145,33 @@ class UserController {
       res.status(500).json({
         success: false,
         message: error.message || 'Erreur lors de la recherche'
+      });
+    }
+  }
+
+  //login
+  async loginUser(req, res) {
+    try {
+      const { email, motDePasse } = req.body;
+
+      if (!email || !motDePasse) {
+        return res.status(400).json({
+          success: false,
+          message: 'Email et mot de passe requis'
+        });
+      }
+
+      const user = await userService.login(email, motDePasse);
+
+      res.status(200).json({
+        success: true,
+        message: 'Connexion réussie',
+        data: user
+      });
+    } catch (error) {
+      res.status(401).json({
+        success: false,
+        message: error.message || 'Erreur lors de la connexion'
       });
     }
   }
