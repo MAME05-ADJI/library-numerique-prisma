@@ -13,10 +13,6 @@ const transactionRoutes = require('./routes/transactionRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware pour rendre les fichiers statiques
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-
 // Connexion à la base de données via Prisma
 database.getInstance(); // Assure que Prisma est initialisé
 
