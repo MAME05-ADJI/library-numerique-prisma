@@ -2,9 +2,20 @@ const express = require('express');
 const userRoutes = require('./routes/userRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const database = require('./config/database');
+const documentRoutes = require('./routes/documentRoutes');
+const categorieRoutes = require('./routes/categorieRoutes');
+const validationRoutes = require('./routes/validationRoutes');
+const telechargementRoutes = require('./routes/telechargementRoutes');
+const consultationRoutes = require('./routes/consultationRoutes');
+const emprunterDocRoutes = require('./routes/emprunterDocRoutes');
+const transactionRoutes = require('./routes/transactionRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Middleware pour rendre les fichiers statiques
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // Connexion à la base de données via Prisma
 database.getInstance(); // Assure que Prisma est initialisé
@@ -15,6 +26,27 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes utilisateurs
 app.use('/api/users', userRoutes);
+
+
+app.use('/api/documents', documentRoutes);
+
+
+app.use('/api/categories', categorieRoutes);
+
+
+app.use('/api/validations', validationRoutes);
+
+
+app.use('/api/telechargements', telechargementRoutes);
+
+
+app.use('/api/consultations', consultationRoutes);
+
+
+app.use('/api/emprunter-docs', emprunterDocRoutes);
+
+
+app.use('/api/transactions', transactionRoutes);
 
 // Route d'accueil/test
 app.get('/', (req, res) => {

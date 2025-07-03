@@ -70,9 +70,20 @@ class UserService {
   async createUser(userData) {
     try {
       // Vérifier si l'email existe déjà
-      const existingUser = await this.prisma.utilisateur.findUnique({
-        where: { email: userData.email }
-      });
+    
+    if (!userData.email) {
+      throw new Error('Le champ email est requis');
+    }
+
+    const existingUser = await this.prisma.utilisateur.findUnique({
+      where: { email: userData.email }
+    });
+
+    if (existingUser) {
+      throw new Error('Cet email est déjà utilisé');
+    }
+
+    // ... suite du code
 
       if (existingUser) {
         throw new Error('Cet email est déjà utilisé');

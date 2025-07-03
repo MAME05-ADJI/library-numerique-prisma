@@ -92,6 +92,7 @@ model Document {
   titre                 String
   auteur                String
   fichier               String
+  pageCouverture        String?
   dateDepot             DateTime @default(now())
   textMeta              String?  @db.Text
   hashDocument          String   @unique
